@@ -1,3 +1,4 @@
+import moment from 'moment';
 
 class ActorModel{
     constructor(firstName, lastName, birthday, imageUrl, imdbLink, age){
@@ -12,7 +13,10 @@ class ActorModel{
 
     findAge(){
         const currentYear = new Date().getFullYear();
-        let age = currentYear - this.birthday.Date.getFullYear();    
+        const birthYear = moment(this.birthday).year();
+
+        const age = currentYear - birthYear;
+                  
         return age;
     }
   

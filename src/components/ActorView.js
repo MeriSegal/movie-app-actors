@@ -13,7 +13,7 @@ class ActorView extends React.Component {
         let contentToRender;
        
         contentToRender= <div>
-            <h1> {this.props.actor[0].firstName} </h1>
+            <h1> {this.props.actor[0].findAge()} </h1>
         </div>
 
         return (
