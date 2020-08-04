@@ -10,13 +10,12 @@ class ActorModel{
         this.age = age;
     }
 
-
     findAge(){
         const currentYear = new Date().getFullYear();
         const currentMonth = new Date().getMonth();
 
         const birthYear = moment(this.birthday).year();
-        const birthMonth = moment("1972-04-17").month()+1;
+        const birthMonth = moment(this.birthday).month()+1;
        
         if(birthMonth>currentMonth)
             return currentYear - birthYear-1;
