@@ -1,13 +1,12 @@
 import moment from 'moment';
 
 class ActorModel{
-    constructor(firstName, lastName, birthday, imageUrl, imdbLink, age){
+    constructor(firstName, lastName, birthday, imageUrl, imdbLink){
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.imageUrl = imageUrl;
         this.imdbLink = imdbLink;
-        this.age = age;
     }
 
     findAge(){
