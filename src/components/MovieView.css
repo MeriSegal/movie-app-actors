@@ -1,0 +1,18 @@
+
+ 
+  .movies> .card{
+      margin: 15px;
+      border: 2px rgb(35, 82, 145) solid; 
+      padding: 10px; 
+      background-color: rgba(148, 183, 206, 0.685);  
+  }
+
+  .card-block {  
+    padding: 1em;     
+  }
+
+  .d-block{
+      max-height: 450px;
+      max-width: 300px;
+      margin: auto; 
+  }

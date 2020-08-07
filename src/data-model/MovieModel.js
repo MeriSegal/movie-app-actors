@@ -7,7 +7,7 @@ class MovieModel{
         this.releaseDate = releaseDate;
         this.overview = overview;
         this.popularity = popularity;
-        this.posterPath = posterPath;
+        this.posterPath = "https://image.tmdb.org/t/p/w400" + posterPath;
     }
 
 
