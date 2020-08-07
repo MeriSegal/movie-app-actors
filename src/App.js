@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import ActorView from './components/ActorView';
 import ActorModel from './data-model/ActorModel';
+import MovieView from './components/MovieView';
+import MovieModel from './data-model/MovieModel';
+
 import axios from 'axios';
 
 class App extends React.Component {
@@ -11,7 +14,8 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            actors: []    
+            actors: [],
+            searchResults: []
         }
     }  
 
@@ -19,16 +23,31 @@ class App extends React.Component {
 
       axios.get("actors.json").then(response => {
         this.setState({
-          actors: response.data.map(plainActor => new ActorModel(plainActor.firstName, plainActor.lastName, plainActor.birthday, plainActor.imageUrl, plainActor.imdbLink))
+          actors: response.data.map(plainActor => new ActorModel(plainActor.id, plainActor.firstName, plainActor.lastName, plainActor.birthday, plainActor.imageUrl, plainActor.imdbLink))
         })
       })
   
     }
-   
-  render() {   
+
+    searchActorMovie = (actorId) =>{
+      const URL = "https://api.themoviedb.org/3/person/"+actorId+"/movie_credits?api_key=28a7c5537dd0465aeb8929133b235f3c&language=en-US";
+      
+      axios.get(URL).then(response => {
+        this.setState({
+            searchResults: response.data.cast.map(result => new MovieModel(result.title, result.character, result.release_date, result.overview, result.popularity, result.poster_path))
+        }) 
+
+      })
+
+    }
+
+    
+  render() {    
+
     return (
       <div>
-        <ActorView actor ={this.state.actors}/>
+        <ActorView actor = {this.state.actors} searchId = {this.searchActorMovie}/>
+        <MovieView movies = {this.state.searchResults} />
       </div>
       );
     }
