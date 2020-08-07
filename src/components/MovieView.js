@@ -12,10 +12,11 @@ class MovieView extends React.Component {
 
        const movies = this.props.movies;
 
-       const contentToRender = movies.map((movie, index) => 
+       const contentToRender = movies.sort((a,b)=>a.popularity>b.popularity? -1 : 1).map((movie, index) => 
             <div Key={index}>
-                <h1>{movie.title}</h1>
+                <h3>{movie.title}</h3>
                 <p>{movie.character}</p>
+                <p>{movie.popularity}</p>
             </div>
            
         );
