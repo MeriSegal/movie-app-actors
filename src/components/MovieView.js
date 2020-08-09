@@ -2,17 +2,37 @@ import React from 'react';
 import {Container} from 'react-bootstrap'
 import './MovieView.css'
 
+import axios from 'axios';
+import MovieModel from '../data-model/MovieModel';
+import { withRouter } from "react-router-dom";
 
 class MovieView extends React.Component {
 
     constructor(props) {
-        super(props);            
+        super(props);  
+        this.state = {           
+            searchResults: []
+        }          
     }
 
+
+    componentDidMount(){
+        const {id} = this.props.match.params;
+
+        const URL = "https://api.themoviedb.org/3/person/"+id+"/movie_credits?api_key=28a7c5537dd0465aeb8929133b235f3c&language=en-US";
+        
+        axios.get(URL).then(response => {
+          this.setState({
+            searchResults: response.data.cast.map(result => new MovieModel(result.title, result.character, result.release_date, result.overview, result.popularity, result.poster_path))
+
+          }) 
+  
+        })  
+    }
    
     render() {
-
-       const movies = this.props.movies;
+       const {name} = this.props.match.params;
+       const movies = this.state.searchResults;
 
        const contentToRender = movies.sort((a,b)=>a.popularity>b.popularity? -1 : 1).slice(0, 3).map((movie, index) => 
                           
@@ -40,6 +60,9 @@ class MovieView extends React.Component {
 
         return (            
             <div className="wrap">
+                <br/>
+                <h1>{name}</h1>
+                <br/>
                 <Container className="movies">
                     {contentToRender}  
                 </Container>                           
@@ -48,4 +71,4 @@ class MovieView extends React.Component {
     }
 }
 
-export default MovieView;
+export default withRouter(MovieView);

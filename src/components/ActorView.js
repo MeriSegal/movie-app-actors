@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container} from 'react-bootstrap'
 import './ActorView.css'
+import { Redirect } from 'react-router-dom';
 
 
 class ActorView extends React.Component {
@@ -9,7 +10,7 @@ class ActorView extends React.Component {
         super(props);
         this.state = {
             name: "",
-            id: 0   
+            id: -1   
         }
     }
 
@@ -24,10 +25,15 @@ class ActorView extends React.Component {
             id: event.target.value.split(',')[0],
             name: event.target.value.split(',')[1]
         });
-        this.props.searchId(event.target.value.split(',')[0]);
+       
     }
 
     render() {
+
+        if (this.state.id !== -1) {
+            const redirectPath = `/actors/${this.state.id}/${this.state.name}/movies`
+            return <Redirect to={redirectPath}/>
+        }
 
         const actor = this.props.actor;
 
